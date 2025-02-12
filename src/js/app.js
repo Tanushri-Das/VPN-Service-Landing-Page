@@ -56,36 +56,31 @@ const testimonials = [
       "Amazing VPN service with fantastic global coverage. Never had any issues with speed or connectivity. Worth every penny!",
     image: "./images/user1.png",
   },
-  // Add more testimonials if needed
 ];
 
 // Initialize Swiper
 const swiper = new Swiper(".testimonialSwiper", {
   slidesPerView: 1,
   spaceBetween: 30,
-  loop: true,
+  loop: false, // ❌ Don't loop to ensure navigation works properly
   pagination: {
     el: ".swiper-pagination",
-    clickable: true, // Make pagination clickable
-    renderBullet: function (index, className) {
-      return '<span class="' + className + '"></span>';
-    },
+    clickable: true,
   },
   navigation: {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev",
   },
-  // Responsive breakpoints
   breakpoints: {
-    // when window width is >= 768px
-    768: {
-      slidesPerView: 2,
-      spaceBetween: 30,
+    768: { slidesPerView: 2, spaceBetween: 30 },
+    1024: { slidesPerView: 3, spaceBetween: 30 },
+  },
+  on: {
+    init: function () {
+      checkNavigationButtons(this);
     },
-    // when window width is >= 1024px
-    1024: {
-      slidesPerView: 3,
-      spaceBetween: 30,
+    slideChange: function () {
+      checkNavigationButtons(this);
     },
   },
 });
@@ -99,26 +94,49 @@ function generateTestimonials() {
     slide.className = "swiper-slide";
 
     slide.innerHTML = `
-            <div class="p-8 border-2 border-gray-200 rounded-2xl hover:border-red-500 h-[230px] transition-all">
-                <div class="flex items-center justify-between mb-8">
-                    <div class="flex items-center gap-4">
-                        <img src="${testimonial.image}" alt="${testimonial.name}" class="w-12 h-12 rounded-full">
-                        <div>
-                            <h4 class="font-medium text-lg">${testimonial.name}</h4>
-                            <p class="text-gray-400">${testimonial.location}</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="font-medium">${testimonial.rating}</span>
-                        <img src="./images/star.png" alt="star" class="w-4 h-4">
-                    </div>
-                </div>
-                <p class="text-gray-600">"${testimonial.comment}"</p>
+        <div class="p-8 border-2 border-gray-200 rounded-2xl hover:border-red-500 h-[230px] transition-all">
+          <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center gap-4">
+              <img src="${testimonial.image}" alt="${testimonial.name}" class="w-12 h-12 rounded-full">
+              <div>
+                <h4 class="font-medium text-lg">${testimonial.name}</h4>
+                <p class="text-gray-400">${testimonial.location}</p>
+              </div>
             </div>
-        `;
+            <div class="flex items-center gap-2">
+              <span class="font-medium">${testimonial.rating}</span>
+              <img src="./images/star.png" alt="star" class="w-4 h-4">
+            </div>
+          </div>
+          <p class="text-gray-600">"${testimonial.comment}"</p>
+        </div>
+      `;
 
     swiperWrapper.appendChild(slide);
   });
+
+  swiper.update(); // ✅ Update Swiper after adding slides
+  checkNavigationButtons(swiper);
+}
+
+// Function to check and disable buttons
+function checkNavigationButtons(swiper) {
+  const prevButton = document.querySelector(".swiper-button-prev");
+  const nextButton = document.querySelector(".swiper-button-next");
+
+  // Disable "Prev" at the start
+  if (swiper.isBeginning) {
+    prevButton.classList.add("swiper-button-disabled");
+  } else {
+    prevButton.classList.remove("swiper-button-disabled");
+  }
+
+  // Disable "Next" at the last slide
+  if (swiper.isEnd) {
+    nextButton.classList.add("swiper-button-disabled");
+  } else {
+    nextButton.classList.remove("swiper-button-disabled");
+  }
 }
 
 // Call the function when the document is loaded
