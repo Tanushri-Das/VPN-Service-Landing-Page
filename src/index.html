@@ -14,6 +14,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
+    <!-- for header icon menu and cross icon -->
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
     <!-- aos animation -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <!-- font awesome -->
@@ -21,59 +23,63 @@
   </head>
   <body class="bg-[#F6F6F6] font-primary overflow-x-hidden">
     <!-- header -->
-    <header class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
-      <nav
-        class="max-w-[1440px] container mx-auto flex justify-between items-center p-4 bg-white"
-      >
+    <header class="bg-white shadow-md lg:fixed lg:top-0 lg:left-0 lg:right-0 lg:z-50">
+      <nav class="max-w-[1440px] container mx-auto flex justify-between items-center p-4 bg-white">
         <!-- logo -->
         <a href="/">
           <div class="flex items-center space-x-2 text-2xl font-bold">
             <img src="./images/logo.png" alt="logo" class="h-8" />
             <h2 class="text-primary">LaslesVPN</h2>
-          </div></a
-        >
-
-        <!-- Menu items -->
-        <ul class="hidden md:flex space-x-8">
-          <li>
-            <a href="#home" class="text-gray-600 hover:text-primary">About</a>
-          </li>
-          <li>
-            <a href="#features" class="text-gray-600 hover:text-primary"
-              >Features</a
-            >
-          </li>
-          <li>
-            <a href="#pricing" class="text-gray-600 hover:text-primary"
-              >Pricing</a
-            >
-          </li>
-          <li>
-            <a href="#testimonials" class="text-gray-600 hover:text-primary"
-              >Testimonials</a
-            >
-          </li>
-          <li>
-            <a href="#subscribe" class="text-gray-600 hover:text-primary"
-              >Help</a
-            >
-          </li>
-        </ul>
-        <!-- Auth Buttons -->
-        <div class="space-x-4">
-          <button
+          </div>
+        </a>
+          <div
+              class="nav-links duration-500 lg:static absolute bg-white lg:min-h-fit min-h-[60vh] left-0 top-[-100%] lg:w-auto  w-full flex items-center px-5">
+              <ul class="flex lg:flex-row flex-col lg:items-center lg:gap-[4vw] gap-8">
+                  <li>
+                    <a href="#home" class="text-gray-600 hover:text-primary">About</a>
+                  </li>
+                  <li>
+                    <a href="#features" class="text-gray-600 hover:text-primary"
+                      >Features</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#pricing" class="text-gray-600 hover:text-primary"
+                      >Pricing</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#testimonials" class="text-gray-600 hover:text-primary"
+                      >Testimonials</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#subscribe" class="text-gray-600 hover:text-primary"
+                      >Help</a
+                    >
+                  </li>
+                  <button
+                  class="border-2 border-primary text-[16px] font-medium text-primary hover:bg-red-600 hover:text-white px-8 py-2 rounded-full cursor-pointer sm:hidden"
+                >
+                  Sign Up
+                </button>
+              </ul>
+          </div>
+          <div class="flex items-center gap-6">
+            <button
             class="text-heading-text text-[16px] font-medium hover:text-primary cursor-pointer hidden md:inline-flex"
           >
             Sign In
           </button>
           <button
-            class="border-2 border-primary text-[16px] font-medium text-primary hover:bg-red-600 hover:text-white px-8 py-2 rounded-full cursor-pointer"
+            class="border-2 border-primary text-[16px] font-medium text-primary hover:bg-red-600 hover:text-white px-8 py-2 rounded-full cursor-pointer hidden sm:inline-flex"
           >
             Sign Up
           </button>
-        </div>
-      </nav>
-    </header>
+              <ion-icon onclick="onToggleMenu(this)" name="menu" class="text-3xl cursor-pointer lg:hidden"></ion-icon>
+              
+          </div>
+  </header>
     <!-- Hero -->
     <section
       id="home"
@@ -505,6 +511,13 @@
     </section>
 
     <!-- js script -->
+    <script>
+      const navLinks = document.querySelector('.nav-links')
+      function onToggleMenu(e){
+          e.name = e.name === 'menu' ? 'close' : 'menu'
+          navLinks.classList.toggle('top-[9%]')
+      }
+  </script>
     <script src="./js/app.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>

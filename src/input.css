@@ -4,6 +4,9 @@
 html {
   scroll-behavior: smooth;
 }
+.nav-links {
+  transition: top 0.3s ease-in-out;
+}
 
 @theme {
   --color-primary: #f53838;
